@@ -133,6 +133,16 @@ class Profile extends ActiveRecord
     public function upload()
     {
 
+        if(isset($this->imageFile->baseName)){
+            $file_n = $this->imageFile->baseName.'_'.date("Y_m_d_H_i_s");
+            $this->imageFile->saveAs('uploads/' . $file_n . '.' . $this->imageFile->extension);
+            return $file_n . '.' . $this->imageFile->extension;
+        }else{
+            return false;
+        }
+
+
+
         $file_n = $this->imageFile->baseName.'_'.date("Y_m_d_H_i_s");
 
         //TODO: make validate

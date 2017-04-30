@@ -58,7 +58,7 @@ class ForgotForm extends Model
         // check for valid user
         $this->user = $this->getUser();
         if (!$this->user) {
-            $this->addError("email", Yii::t("user", "Email not found"));
+            $this->addError("email", Yii::t("user", "Email не найден"));
         }
     }
 
