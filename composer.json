@@ -1,0 +1,20 @@
+{
+    "name": "sokolby/skl-yii2-admin",
+    "description": "Yii 2 user authentication and admin dashboard module",
+    "keywords": ["yii", "yii2", "user", "auth", "authentication", "admin", "dashboard"],
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sokolby",
+            "email": "sokolby@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-authclient": "*"
+    },
+    "autoload": {
+        "psr-4": { "amnah\\yii2\\user\\": "" }
+    }
+}
