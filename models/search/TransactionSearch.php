@@ -26,8 +26,8 @@ class TransactionSearch extends User
     public function rules()
     {
         return [
-            [['desc','date'], 'string'],
-            [['user_id','status'], 'integer'],
+            [['desc'], 'string'],
+            [['user_id','amount','status'], 'integer'],
         ];
     }
 
@@ -59,33 +59,18 @@ class TransactionSearch extends User
         /** @var \amnah\yii2\user\models\User $user */
         /** @var \amnah\yii2\user\models\Profile $profile */
 
-
         // get models
         $user = $this->module->model("Transaction");
-        $profile = $this->module->model("Profile");
-        $userTable = $user::tableName();
-        $profileTable = $profile::tableName();
 
         // set up query relation for `user`.`profile`
         // http://www.yiiframework.com/doc-2.0/guide-output-data-widgets.html#working-with-model-relations
         $query = $user::find();
 
 
-        //$query->joinWith(['profile' => function ($query) use ($profileTable) {
-        //    $query->from(['profile' => $profileTable]);
-        //}]);
-
-
-        //$page_size = 5;
-
         // create data provider
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            //'pagination' => [
-            //    'pageSize' => $page_size,
-            //]
         ]);
-
 
         // enable sorting for the related columns
         $addSortAttributes = ["profile.full_name"];
@@ -100,16 +85,19 @@ class TransactionSearch extends User
             return $dataProvider;
         }
 
-
         $query->andFilterWhere([
-            "{$userTable}.id" => $this->id,
-            'title' => $this->title,
-            'desc' => $this->desc,
+            'user_id' => $this->user_id,
+            'amount' => $this->amount,
+            'status' => $this->status,
+            'desc' => $this->desc
+
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
+        $query->andFilterWhere(['like', 'user_id', $this->user_id])
+            ->andFilterWhere(['like', 'amount', $this->amount])
+            ->andFilterWhere(['like', 'status', $this->status])
             ->andFilterWhere(['like', 'desc', $this->desc])
-            ->andFilterWhere(['like', "profile.full_name", $this->getAttribute('profile.full_name')]);
+        ;
 
         return $dataProvider;
     }

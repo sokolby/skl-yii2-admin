@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         Коды: <br/>
         1 - Авторизация<br/>
-        2 - Регистрация
+        2 - Регистрация<br/>
+        3 - Задачи по расписания
     </p>
 
     <?php  //echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php \yii\widgets\Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        //'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -61,6 +62,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) use ($user_model) {
 
                     switch ($model->user_role){
+                        case 0:
+                            $ret = 'Root';
+                            break;
                         case 1:
                             $ret = 'Администратор';
                             break;
@@ -74,7 +78,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'ip',
             'code',
-
             [
                 'class' => \yii\grid\ActionColumn::className(),
                 'template'=>'{view} {delete}'
