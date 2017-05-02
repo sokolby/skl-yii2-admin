@@ -41,6 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $user,
         'attributes' => [
             'id',
+            'receipt_cond_agree',
+            'has_sharebonus',
             [
                 'attribute' => 'role_id',
                 'value' => function ($model) {

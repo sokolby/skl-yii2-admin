@@ -99,6 +99,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['email'], 'email'],
             [['username'], 'match', 'pattern' => '/^\w+$/u', 'except' => 'social', 'message' => Yii::t('user', '{attribute} can contain only letters, numbers, and "_"')],
 
+            [['receipt_cond_agree','has_sharebonus'], 'integer'],
+
             // password rules
             [['newPassword'], 'string', 'min' => 3],
             [['newPassword'], 'filter', 'filter' => 'trim'],
@@ -151,6 +153,8 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => Yii::t('user', 'ID'),
             'role_id' => Yii::t('user', 'ID Роли'),
+            'receipt_cond_agree' => Yii::t('user', 'Приняты правила загрузки чека'),
+            'has_sharebonus' => Yii::t('user', 'Получен бонус за шэринг'),
             'status' => Yii::t('user', 'Статус'),
             'email' => Yii::t('user', 'Email'),
             'username' => Yii::t('user', 'Username'),

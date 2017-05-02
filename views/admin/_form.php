@@ -28,6 +28,9 @@ $role = $module->model("Role");
 
     <?= $form->field($user, 'username')->textInput(['maxlength' => 255]) ?>
 
+    <?= $form->field($user, 'receipt_cond_agree')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($user, 'has_sharebonus')->textInput(['maxlength' => 255]) ?>
+
     <?= $form->field($user, 'newPassword')->passwordInput() ?>
 
     <?= $form->field($user, 'role_id')->dropDownList($role::dropdown()); ?>
@@ -162,11 +165,10 @@ $role = $module->model("Role");
     <?= $form->field($profile, 'phone') ?>
 
     <?= $form->field($profile, 'chkbxEmailMe')->checkbox(
-        ['label' => '<label for="profile-chkbxemailme">Хочу получать сообщения об акциях Расшишка</label>', 'uncheck' => '']); ?>
+        ['label' => '<label for="profile-chkbxemailme">Хочу получать сообщения об акциях "Расшишка"</label>', 'uncheck' => '']); ?>
     <?= $form->field($profile, 'chkbxRules')->checkbox(
         ['label' => '<label for="profile-chkbxrules">Я согласен с условиями <a href="#" class="animate-custom" target="_blank">пользовательского соглашения</a></label>', 'uncheck' => '']); ?>
-    <?= $form->field($profile, 'chkbxVek')->checkbox(
-        ['label' => '<label for="profile-chkbxvek">Хочу получать сообщения об акциях Расшишка</label>', 'uncheck' => '']); ?>
+
 
     <div class="form-group">
         <?= Html::submitButton($user->isNewRecord ? Yii::t('user', 'Create') : Yii::t('user', 'Update'), ['class' => $user->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
