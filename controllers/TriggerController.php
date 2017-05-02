@@ -175,7 +175,7 @@ class TriggerController extends Controller
         $products = json_decode($info);
 
         foreach ($photos as $ind => $ph){
-            $photos[$ind] = 'http://rastishka-new.stage.by/user_receipt/'.$coll_name->user_id.'/'.$ph;
+            $photos[$ind] = Yii::$app->homeUrl.'/user_receipt/'.$coll_name->user_id.'/'.$ph;
             //$photos[$ind] = 'http://rastishka-new.stage.by/user_receipt/1/1_IMG_17062015_114455_2017_04_17_14_03_24.png';
         }
 
