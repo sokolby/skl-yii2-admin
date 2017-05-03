@@ -127,6 +127,10 @@ class OrdersController extends Controller
         $post = Yii::$app->request->post();
         $userLoaded = $user->load($post);
 
+        $user_info = $this->module->model("User");
+        $user_info = $user_info::findOne($user->user_id);
+
+
         // validate for ajax request
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -135,6 +139,25 @@ class OrdersController extends Controller
 
         // load post data and validate
         if ($userLoaded && $user->validate()) {
+
+            if(isset($post['Orders']) AND $post['Orders']['status'] == 1 AND $user->informed != 1 ) {
+                $mailer = Yii::$app->mailer;
+                $oldViewPath = $mailer->viewPath;
+                $mailer->viewPath = $this->module->emailViewPath;
+                // send email
+                $email = $user_info->email;
+                $subject = "Статус заказа";
+                $mailer->compose('confirmOrder', compact("subject"))
+                    ->setTo($email)
+                    ->setSubject($subject)
+                    ->send();
+
+                // restore view path and return result
+                $mailer->viewPath = $oldViewPath;
+
+                $user->informed = 1;
+            }
+
             $user->save(false);
             return $this->redirect(['view', 'id' => $user->id]);
         }

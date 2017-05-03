@@ -52,7 +52,8 @@ class Orders extends ActiveRecord
             'type' => Yii::t('user', 'Тип'),
             'item' => Yii::t('user', 'Корзина'),
             'user_id' => Yii::t('user', 'Пользователь'),
-            'status' => Yii::t('user', 'Статус')
+            'status' => Yii::t('user', 'Статус'),
+            'informed' => Yii::t('user', 'Отправлен e-mail?')
         ];
     }
 

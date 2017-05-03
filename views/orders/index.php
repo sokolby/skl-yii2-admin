@@ -57,7 +57,27 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'type',
             'time',
-            'status',
+            [
+                'attribute' => 'status',
+                'format'=>'raw',
+                'value' => function($model) {
+
+                    switch ($model->status){
+                        case 0:
+                            $out = 'Проверяется';
+                            break;
+                        case 1:
+                            $out = '<span style="color: orange">Подтвержден</span>';
+                            break;
+                        case 2:
+                            $out = '<span style="color: green">Отправлен</span>';
+                            break;
+                    }
+
+                    return $out;
+
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

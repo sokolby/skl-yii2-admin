@@ -59,6 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ],
+            'informed',
             'time',
             [
                 'attribute' => 'item',
@@ -68,19 +69,46 @@ $this->params['breadcrumbs'][] = $this->title;
                     $order_cart = json_decode($model->item);
                     $out = "";
 
-                    foreach ($order_cart as $ord){
-
-                        $coll_name = \amnah\yii2\user\models\Magnets::find()->where(['id'=>$ord->collection])->one();
-                        $out .= "Коллекция: {$coll_name->title} <br/>";
-                        $out .= "Номер магнита: {$ord->number} <br/>";
-                        $out .= "<br/>";
+                    if($model->type == 'gift'){
+                        foreach ($order_cart as $ord){
+                            $out .= "Название: {$ord->name} <br/>";
+                            $out .= "<br/>";
+                        }
+                    }else{
+                        foreach ($order_cart as $ord){
+                            $coll_name = \amnah\yii2\user\models\Magnets::find()->where(['id'=>$ord->collection])->one();
+                            $out .= "Коллекция: {$coll_name->title} <br/>";
+                            $out .= "Номер магнита: {$ord->number} <br/>";
+                            $out .= "<br/>";
+                        }
                     }
+
 
                     return $out;
 
                 },
             ],
-            'status',
+            [
+                'attribute' => 'status',
+                'format'=>'raw',
+                'value' => function($model) {
+
+                    switch ($model->status){
+                        case 0:
+                            $out = 'Проверяется';
+                            break;
+                        case 1:
+                            $out = '<span style="color: orange">Подтвержден</span>';
+                            break;
+                        case 2:
+                            $out = '<span style="color: green">Отправлен</span>';
+                            break;
+                    }
+
+                    return $out;
+
+                },
+            ]
         ],
     ]) ?>
 

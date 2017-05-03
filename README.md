@@ -3,7 +3,7 @@ Yii 2 Admin
 
 Yii 2 Admin - User authentication module and admin dashboard
 
-## New version released 05/02/2017 v.0.7
+## New version released 05/03/2017 v.0.7.2
 
 Based on https://github.com/amnah/yii2-user
 
