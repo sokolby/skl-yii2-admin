@@ -267,15 +267,6 @@ class DefaultController extends Controller
 
 
 
-        if (Yii::$app->request->isPost) {
-            $profile->imageFile = UploadedFile::getInstance($profile, 'imageFile');
-            $file = $profile->upload();
-            //var_dump( $profile->imageFile  ); die;
-            $profile->ava_src = $file;
-            $profile->save();
-
-        }
-
         //var_dump( $post ); die;
 
 
@@ -292,8 +283,21 @@ class DefaultController extends Controller
             }
 
 
+
             // validate for normal request
             if ($user->validate() && $profile->validate()) {
+
+                if (Yii::$app->request->isPost) {
+                    $profile->imageFile = UploadedFile::getInstance($profile, 'imageFile');
+
+                    if($file = $profile->upload()){
+                        $profile->imageFile = null;
+                        $profile->ava_src = $file;
+                    }else{
+                        Yii::$app->session->setFlash("Register-error", 'Ошибка загрузки фото');
+                        return $this->render("register", compact("user", "profile"));
+                    }
+                }
 
                 // perform registration
                 $role = $this->module->model("Role");
