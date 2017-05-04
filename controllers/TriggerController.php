@@ -203,7 +203,7 @@ class TriggerController extends Controller
         $data["RequestId"] = $receipt_id;
         $data["Product"] = $product_arr;
         $data["Photo"] = $photos;
-        $data["TestStatus"] = 2;
+        //$data["TestStatus"] = 2;
 
         $data_string = json_encode($data);
 
