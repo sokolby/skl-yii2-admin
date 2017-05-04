@@ -200,7 +200,7 @@ class TriggerController extends Controller
         $headers->add('Content-Type', 'text/xml');
 
         $data = [];
-        $data["RequestId"] = '111'.$receipt_id; // todo: remove prefix for receipt
+        $data["RequestId"] = $receipt_id; // todo: remove prefix for receipt
         $data["Product"] = $product_arr;
         $data["Photo"] = $photos;
         //$data["TestStatus"] = 2;
