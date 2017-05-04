@@ -36,7 +36,7 @@ class Profile extends ActiveRecord
             [['full_name','surname','name','third_name','sex','region','area','area_type','city','zip','str','house','housing','apt','phone'], 'string', 'max' => 255],
             [['surname','name','third_name','sex','region','area_type','city','zip','str','house','apt','phone'], 'required'],
             [['bday_d','bday_m','bday_y','chkbxEmailMe','chkbxRules'],'integer'],
-            [['bday_d','bday_m','bday_y','chkbxEmailMe','chkbxRules'],'required'],
+            [['bday_d','bday_m','bday_y','chkbxRules'],'required'],
             [['timezone'], 'string', 'max' => 255],
             //[["imageFile"], "file", "skipOnEmpty" => TRUE, "extensions" => "jpg, jpeg"],
             //[['imageFile'],'required'],
