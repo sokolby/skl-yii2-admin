@@ -12,7 +12,7 @@ use yii\grid\GridView;
  * @var amnah\yii2\user\models\Role $role
  */
 
-$this->title = Yii::t('user', 'Призы');
+$this->title = Yii::t('user', 'Подарки');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('user', 'Создать приз', [
+        <?= Html::a(Yii::t('user', 'Создать подарок', [
           'modelClass' => 'User',
         ]), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -34,11 +34,9 @@ $this->params['breadcrumbs'][] = $this->title;
         //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'title',
             'price',
             'price_delivery',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

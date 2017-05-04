@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use pendalf89\filemanager\widgets\FileInput;
 
 /**
  * @var yii\web\View $this
@@ -11,6 +12,11 @@ use yii\widgets\ActiveForm;
  * @var amnah\yii2\user\models\Role $role
  * @var yii\widgets\ActiveForm $form
  */
+
+
+if(isset($user->attributes['img'])){
+    $items = json_decode($user->attributes['img']);
+}
 
 ?>
 
@@ -28,7 +34,82 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($user, 'desc')->textarea() ?>
 
-    <?= $form->field($user, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('') ?>
+    <?php /*echo $form->field($user, 'imageFiles[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('')*/ ?>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Магниты</h4>
+            <div class="repeat">
+                <table class="wrapper table table-striped table-bordered" width="100%">
+                    <thead>
+                    <tr>
+                        <td width="10%" colspan="4"><span class="add btn btn-success">Добавить вариант</span></td>
+                    </tr>
+                    </thead>
+                    <tbody class="container">
+
+
+
+                    <tr class="template row">
+                        <td width="10%"><span class="move" style="cursor: move"><span class="glyphicon glyphicon-move"></span>Переместить</span></td>
+
+                        <td width="80%">
+                            <dl>
+                                <dt>Ссылка на картинку</dt>
+                                <dd> <input type="text" class="form-control" name="Prize[img][{{row-count-placeholder}}][image]" /></dd>
+                            </dl>
+
+                        </td>
+
+                        <td width="10%"><span class="remove btn btn-danger">Удалить</span></td>
+                    </tr>
+
+
+                    <?php if(isset($items)): foreach ($items as $index=>$sl):?>
+                        <tr class="row">
+                            <td width="10%"><span class="move" style="cursor: move"><span class="glyphicon glyphicon-move"></span>Переместить</span></td>
+
+                            <td width="80%">
+                                <dl>
+                                    <?php
+                                    echo FileInput::widget([
+                                        'name' => 'Prize[img]['.$index.'][image]',
+                                        'value' => $sl->image,
+                                        'buttonTag' => 'button',
+                                        'buttonName' => 'Обзор',
+                                        'buttonOptions' => ['class' => 'btn btn-default'],
+                                        'options' => ['class' => 'form-control'],
+                                        // Widget template
+                                        'template' => '<dt>Ссылка на картинку</dt><dd>{input}{button}</dd>',
+                                        // Optional, if set, only this image can be selected by user
+                                        'thumb' => 'original',
+                                        // Optional, if set, in container will be inserted selected image
+                                        'imageContainer' => '.img',
+                                        // Default to FileInput::DATA_IDL. This data will be inserted in input field
+                                        'pasteData' => FileInput::DATA_URL,
+                                        // JavaScript function, which will be called before insert file data to input.
+                                        // Argument data contains file data.
+                                        // data example: [alt: "Ведьма с кошкой", description: "123", url: "/uploads/2014/12/vedma-100x100.jpeg", id: "45"]
+                                        'callbackBeforeInsert' => 'function(e, data) {
+                                        console.log( data );
+                                    }',
+                                    ]);
+                                    ?>
+
+                                </dl>
+
+                            </td>
+
+                            <td width="10%"><span class="remove btn btn-danger">Удалить</span></td>
+                        </tr>
+                    <?php endforeach; endif; ?>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <?= $form->field($user, 'price')->textInput(['maxlength' => 255]) ?>
     <?= $form->field($user, 'price_delivery')->textInput(['maxlength' => 255]) ?>
@@ -40,3 +121,16 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.js" integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script src="/scripts/admin/repeatable-fields.js"></script>
+<script>
+    jQuery('.repeat').each(function() {
+        jQuery(this).repeatable_fields(
+            {
+                move: '.move',
+            }
+        );
+    });
+</script>

@@ -8,10 +8,10 @@ use yii\helpers\Html;
  * @var amnah\yii2\user\models\Profile $profile
  */
 
-$this->title = Yii::t('user', 'Редактировать приз: ', [
+$this->title = Yii::t('user', 'Редактировать подарок: ', [
         'modelClass' => 'User',
     ]) . ' ' . $user->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'Призы'), 'url' => ['/user/prize/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'Подарки'), 'url' => ['/user/prize/index']];
 $this->params['breadcrumbs'][] = ['label' => $user->title, 'url' => ['view', 'id' => $user->id]];
 $this->params['breadcrumbs'][] = Yii::t('user', 'Редактирование');
 ?>

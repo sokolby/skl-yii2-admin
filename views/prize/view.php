@@ -9,7 +9,7 @@ use yii\widgets\DetailView;
  */
 
 $this->title = $prize->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'Призы'), 'url' => ['/user/prize/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'Подарки'), 'url' => ['/user/prize/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 $module = $this->context->module;

@@ -98,6 +98,14 @@ class PrizeController extends Controller
 
         $post = Yii::$app->request->post();
         $userLoaded = $user->load($post);
+        $post_req = Yii::$app->request->post();
+        if(isset($post_req['Prize']['img'])){
+            $post_req = Yii::$app->request->post();
+            $json_encode = json_encode($post_req['Prize']['img'], JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_QUOT);
+
+            $post_req['Prize']['img'] = $json_encode;
+        }
+        $userLoaded = $user->load($post_req);
 
         // validate for ajax request
         if (Yii::$app->request->isAjax) {
@@ -107,12 +115,7 @@ class PrizeController extends Controller
 
         // load post data and validate
         if ($userLoaded && $user->validate()) {
-
-            $user->imageFiles = UploadedFile::getInstances($user, 'imageFiles');
-            $file = $user->upload();
-            $user->img = json_encode($file);
             $user->save(false);
-
             return $this->redirect(['view', 'id' => $user->id]);
         }
 
@@ -134,6 +137,16 @@ class PrizeController extends Controller
         $post = Yii::$app->request->post();
         $userLoaded = $user->load($post);
 
+
+        $post_req = Yii::$app->request->post();
+        if(isset($post_req['Prize']['img'])){
+            $post_req = Yii::$app->request->post();
+            $json_encode = json_encode($post_req['Prize']['img'], JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_QUOT);
+
+            $post_req['Prize']['img'] = $json_encode;
+        }
+        $userLoaded = $user->load($post_req);
+
         // validate for ajax request
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -142,9 +155,6 @@ class PrizeController extends Controller
 
         // load post data and validate
         if ($userLoaded && $user->validate()) {
-            $user->imageFiles = UploadedFile::getInstances($user, 'imageFiles');
-            $file = $user->upload();
-            $user->img = json_encode($file);
             $user->save(false);
             return $this->redirect(['view', 'id' => $user->id]);
         }
