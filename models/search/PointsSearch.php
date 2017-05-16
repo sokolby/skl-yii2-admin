@@ -102,14 +102,14 @@ class PointsSearch extends User
 
 
         $query->andFilterWhere([
-            "{$userTable}.id" => $this->id,
-            'title' => $this->title,
-            'desc' => $this->desc,
+            'user_id' => $this->user_id,
+            'amount' => $this->amount,
+            'last_update' => $this->last_update,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'desc', $this->desc])
-            ->andFilterWhere(['like', "profile.full_name", $this->getAttribute('profile.full_name')]);
+        $query->andFilterWhere(['like', 'last_update', $this->last_update])
+            ->andFilterWhere(['like', 'user_id', $this->user_id])
+            ->andFilterWhere(['like', 'amount', $this->amount]);
 
         return $dataProvider;
     }
