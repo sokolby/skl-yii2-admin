@@ -25,6 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+
+    <?php if ($flash = Yii::$app->session->getFlash("admin-success")): ?>
+        <div class="alert alert-success">
+            <p><?= $flash ?></p>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($flash = Yii::$app->session->getFlash("admin-error")): ?>
+        <div class="alert alert-danger">
+            <p><?= $flash ?></p>
+        </div>
+    <?php endif; ?>
+
     <p>
         <?= Html::a(Yii::t('user', 'Создать пользователя', [
           'modelClass' => 'User',
@@ -76,5 +89,12 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
     <?php \yii\widgets\Pjax::end(); ?>
+
+
+    <p>
+        <?= Html::a(Yii::t('user', 'Выгрузить в CSV', [
+            'modelClass' => 'User',
+        ]), ['export?type=csv'], ['class' => 'btn btn-primary']) ?>
+    </p>
 
 </div>

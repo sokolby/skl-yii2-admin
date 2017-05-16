@@ -170,6 +170,31 @@ class AdminController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionExport($type){
+
+        $out = [];
+
+        switch ($type){
+            case "csv":
+                $csv = $this->generateUserCsv();
+                $out['error'] = 0;
+                $out['response'] = $csv;
+                $out['message'] = 'Скачать файл: <a href="/'.$csv.'">тут</a>';
+                break;
+            default:
+                $out['error'] = 1;
+                $out['message'] = 'Error type value';
+        }
+
+        if($out['error'] === 0){
+            Yii::$app->session->setFlash("admin-success",$out['message']);
+        }else{
+            Yii::$app->session->setFlash("admin-error",$out['message']);
+        }
+
+        return $this->redirect('/user/admin');
+    }
+
     /**
      * Find the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -187,5 +212,75 @@ class AdminController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function generateUserCsv(){
+        $csv_out = [];
+        $user = $this->module->model("User");
+        $profile = $this->module->model("Profile");
+
+        $users = $user::find()->all();
+
+        $region_arr = [
+            "170"=>'г. Минск',
+            "164"=>'Брестская область',
+            "165"=>'Витебская область',
+            "166"=>'Гомельская область',
+            "167"=>'Гродненская область',
+            "168"=>'Минская область',
+            "169"=>'Могилевская область'
+        ];
+
+        $i = 0;
+        $csv_result[$i] = [
+            'email',
+            'фамилия',
+            'имя',
+            'пол',
+            'рождение день',
+            'рождение месяц',
+            'рождение год',
+            'область',
+            'город',
+            'телефон',
+            'Хочу получать сообщения об акциях Растишка',
+        ];
+
+
+        foreach ($users as $u){
+
+            $profile = $profile::findOne($u->attributes['id']);
+
+            $csv_result[$i+1] = [
+                $u->attributes['email'],
+                $profile->attributes['surname'],
+                $profile->attributes['name'],
+                ($profile->attributes['sex']===1)?'м':'ж',
+                $profile->attributes['bday_d'],
+                $profile->attributes['bday_m'],
+                $profile->attributes['bday_y'],
+                $region_arr[$profile->attributes['region']],
+                $profile->attributes['city'],
+                $profile->attributes['phone'],
+                ($profile->attributes['chkbxEmailMe']===1)?'да':'нет'
+            ];
+            ++$i;
+        }
+
+        $date = date('m-d-y-H-i-s');
+        $date_hash = hash('crc32',date('mdyHis'));
+
+        $filename = $date_hash.$date;
+        $file = fopen("csv_export_folder/{$filename}.csv","w");
+
+
+        foreach ($csv_result as $line)
+        {
+            fputcsv($file,$line);
+        }
+
+        fclose($file);
+
+        return "csv_export_folder/{$filename}.csv";
     }
 }
