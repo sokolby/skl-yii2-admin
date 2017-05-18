@@ -200,6 +200,12 @@ class TriggerController extends Controller
         $headers->add('Content-Type', 'text/xml');
 
         $data = [];
+        $data["ContactId"] = $coll_name->user_id;
+
+        $points_model = \amnah\yii2\user\models\Points::find()->where(['user_id'=>$coll_name->user_id])->one();
+        $data["PointsAmount"] = $points_model->amount;
+        //$data["DaysAmount"] = $receipt_id;
+
         $data["RequestId"] = $receipt_id;
         $data["Product"] = $product_arr;
         $data["Photo"] = $photos;

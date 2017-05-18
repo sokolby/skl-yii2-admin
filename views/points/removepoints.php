@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($user, 'user_id')->textInput(['maxlength' => 255])->label('ID пользователя') ?>
+        <?= $form->field($user, 'user_id')->textInput(['maxlength' => 255])->label('ID бонусного счёта') ?>
 
         <?= $form->field($user, 'amount')->textInput(['maxlength' => 255]) ?>
 

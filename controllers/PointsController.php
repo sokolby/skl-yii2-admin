@@ -134,16 +134,8 @@ class PointsController extends Controller
             var_dump('Get out'); die;
         }
 
-
         $user = $this->module->model("Points");
-
         $transaction = $this->module->model("Transaction");
-
-
-        // Get points amount
-        $user_identity = Yii::$app->user->identity;
-        $uid = $user_identity->profile->user_id;
-        $points_amount = Points::find()->where(['user_id' => $uid])->one();
 
         $post = Yii::$app->request->post();
 
@@ -155,15 +147,19 @@ class PointsController extends Controller
             return ActiveForm::validate($user);
         }
 
+
         // load post data and validate
         if ($userLoaded && $user->validate()) {
-            $user = $this->findModel($post['Points']['user_id']);
-            $new_balance = (int)$points_amount->amount + (int)$post['Points']['amount'];
+
+            $user = $this->findModel((int)$post['Points']['user_id']);
+
+
+            $new_balance = (int)$user->amount + (int)$post['Points']['amount'];
             $user->amount = $new_balance;
             $user->last_update = date("Y-m-d H:i:s");
             $user->save(false);
 
-            $transaction->user_id = $post['Points']['user_id'];
+            $transaction->user_id = $user->user_id;
             $transaction->date = date("Y-m-d H:i:s");
             $transaction->status = 200;
             $transaction->amount = (int)$post['Points']['amount'];
@@ -183,14 +179,7 @@ class PointsController extends Controller
 
 
         $user = $this->module->model("Points");
-
         $transaction = $this->module->model("Transaction");
-
-
-        // Get points amount
-        $user_identity = Yii::$app->user->identity;
-        $uid = $user_identity->profile->user_id;
-        $points_amount = Points::find()->where(['user_id' => $uid])->one();
 
         $post = Yii::$app->request->post();
 
@@ -205,12 +194,12 @@ class PointsController extends Controller
         // load post data and validate
         if ($userLoaded && $user->validate()) {
             $user = $this->findModel($post['Points']['user_id']);
-            $new_balance = (int)$points_amount->amount - (int)$post['Points']['amount'];
+            $new_balance = (int)$user->amount - (int)$post['Points']['amount'];
             $user->amount = $new_balance;
             $user->last_update = date("Y-m-d H:i:s");
             $user->save(false);
 
-            $transaction->user_id = $post['Points']['user_id'];
+            $transaction->user_id = $user->user_id;
             $transaction->date = date("Y-m-d H:i:s");
             $transaction->status = 100;
             $transaction->amount = (int)$post['Points']['amount'];
