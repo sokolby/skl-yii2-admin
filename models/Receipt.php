@@ -53,6 +53,7 @@ class Receipt extends ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => Yii::t('user', 'ID чека'),
             'img' => Yii::t('user', 'Картинка'),
             'data' => Yii::t('user', 'Продукты'),
             'date' => Yii::t('user', 'Время'),

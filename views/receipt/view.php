@@ -62,6 +62,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'img',
             'data',
             'status',
+            'api_sent',
+            'api_response',
         ],
     ]) ?>
 

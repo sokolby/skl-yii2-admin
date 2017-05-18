@@ -10,14 +10,14 @@ use amnah\yii2\user\models\User;
 /**
  * UserSearch represents the model behind the search form about `amnah\yii2\user\models\User`.
  */
-class ReceiptSearch extends User
+class LogAppSearch extends User
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return "{{%post_receipt}}";
+        return "{{%log_app}}";
     }
 
     /**
@@ -26,8 +26,8 @@ class ReceiptSearch extends User
     public function rules()
     {
         return [
-            [['id','date'], 'string'],
-            [['user_id','status'], 'integer'],
+            [['date','type','msg','app'], 'string'],
+            [['user_id','code'], 'integer'],
         ];
     }
 
@@ -60,7 +60,7 @@ class ReceiptSearch extends User
         /** @var \amnah\yii2\user\models\Profile $profile */
 
         // get models
-        $user = $this->module->model("Receipt");
+        $user = $this->module->model("LogApp");
 
         // set up query relation for `user`.`profile`
         // http://www.yiiframework.com/doc-2.0/guide-output-data-widgets.html#working-with-model-relations
@@ -86,18 +86,19 @@ class ReceiptSearch extends User
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
+            'date' => $this->date,
             'user_id' => $this->user_id,
-            'status' => $this->status,
-            'date' => $this->date
+            'type' => $this->type,
+            'code' => $this->code,
+            'app' => $this->app,
 
         ]);
 
-        $query->andFilterWhere(['like', 'id', $this->id])
+        $query->andFilterWhere(['like', 'date', $this->date])
             ->andFilterWhere(['like', 'user_id', $this->user_id])
-            ->andFilterWhere(['like', 'status', $this->status])
-            ->andFilterWhere(['like', 'date', $this->date])
-        ;
+            ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'code', $this->code])
+            ->andFilterWhere(['like', 'app', $this->app]);
 
         return $dataProvider;
     }

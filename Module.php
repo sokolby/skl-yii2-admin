@@ -16,7 +16,7 @@ class Module extends \yii\base\Module
     /**
      * @var string Module version
      */
-    protected $version = "0.8.3";
+    protected $version = "0.9";
 
     /**
      * @var string Alias for module
@@ -221,6 +221,7 @@ class Module extends \yii\base\Module
             'Orders' => 'amnah\yii2\user\models\Orders',
             'Receipt' => 'amnah\yii2\user\models\Receipt',
             'LogActivity' => 'amnah\yii2\user\models\LogActivity',
+            'LogApp' => 'amnah\yii2\user\models\LogApp',
             'Points' => 'amnah\yii2\user\models\Points',
             'Transaction' => 'amnah\yii2\user\models\Transaction',
             'Filemanager' => 'amnah\yii2\user\models\Filemanager',
@@ -231,6 +232,7 @@ class Module extends \yii\base\Module
             'OrdersSearch' => 'amnah\yii2\user\models\search\OrdersSearch',
             'ReceiptSearch' => 'amnah\yii2\user\models\search\ReceiptSearch',
             'LogActivitySearch' => 'amnah\yii2\user\models\search\LogActivitySearch',
+            'LogAppSearch' => 'amnah\yii2\user\models\search\LogAppSearch',
             'PointsSearch' => 'amnah\yii2\user\models\search\PointsSearch',
             'TransactionSearch' => 'amnah\yii2\user\models\search\TransactionSearch'
         ];
@@ -267,7 +269,7 @@ class Module extends \yii\base\Module
     {
         // check valid routes
         $validRoutes  = [$this->defaultRoute, "admin", "product", "product_cat", "magnets", "prize", "orders", "receipt",
-                        "log_activity", "points", "transaction", "trigger", "filemanager", "copy", "auth"];
+                        "log_activity", "logapp", "points", "transaction", "trigger", "filemanager", "copy", "auth"];
         $isValidRoute = false;
         foreach ($validRoutes as $validRoute) {
             if (strpos($route, $validRoute) === 0) {
