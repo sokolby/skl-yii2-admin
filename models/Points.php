@@ -48,6 +48,7 @@ class Points extends ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => Yii::t('user', 'ID бонусного счёта'),
             'user_id' => Yii::t('user', 'Пользователь'),
             'amount' => Yii::t('user', 'Баланс'),
             'last_update' => Yii::t('user', 'Обновлены'),

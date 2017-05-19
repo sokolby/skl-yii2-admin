@@ -72,7 +72,7 @@ class LoginForm extends Model
             } else {
                 $attribute = $this->module->loginEmail ? "Email" : "Username";
             }
-            $this->addError("email", Yii::t("user", "$attribute not found"));
+            $this->addError("email", Yii::t("user", "$attribute не найден"));
 
             // do we need to check $user->userAuths ???
         }
@@ -150,7 +150,7 @@ class LoginForm extends Model
 
         return [
             "email" => Yii::t("user", $attribute),
-            "password" => Yii::t("user", "Password"),
+            "password" => Yii::t("user", "пароль"),
             "rememberMe" => Yii::t("user", "Remember Me"),
         ];
     }

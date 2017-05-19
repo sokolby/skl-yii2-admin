@@ -59,11 +59,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'date',
-            'img',
             'data',
+            'img',
+            [
+                'attribute' => 'img',
+                'format'=>'raw',
+                'value' => function ($model) {
+                        $out = "";
+                        $imgs = json_decode($model->img);
+                        foreach ($imgs as $img){
+                            $out = "<a href='/user_receipt/".$model->user_id."/".$img."' target='_blank'><img src='/user_receipt/".$model->user_id."/".$img."' width='300'/></a></br>";
+                        }
+                        return $out;
+
+
+                }
+            ],
             'status',
+            'notes',
             'api_sent',
             'api_response',
+            'api_check_response',
         ],
     ]) ?>
 
