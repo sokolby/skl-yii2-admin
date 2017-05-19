@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($user, 'status')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($user, 'api_sent')->textInput(['maxlength' => 255]) ?>
+
 
     <div class="form-group">
         <?= Html::submitButton($user->isNewRecord ? Yii::t('user', 'Create') : Yii::t('user', 'Update'), ['class' => $user->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
