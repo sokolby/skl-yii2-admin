@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'code',
             'app',
             'msg',
+            'processed',
         ],
     ]) ?>
 

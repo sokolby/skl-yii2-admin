@@ -16,7 +16,7 @@ class Module extends \yii\base\Module
     /**
      * @var string Module version
      */
-    protected $version = "0.9.3";
+    protected $version = "0.9.4";
 
     /**
      * @var string Alias for module
