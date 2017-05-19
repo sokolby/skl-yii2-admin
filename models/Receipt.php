@@ -39,7 +39,7 @@ class Receipt extends ActiveRecord
         $rules = [
             // general email and username rules
             [['img','data','date'], 'string'],
-            [['user_id','status'], 'integer'],
+            [['user_id','status','api_sent'], 'integer'],
             //[["imageFile"], "file", "skipOnEmpty" => TRUE, "extensions" => "jpg, jpeg"],
             //[['imageFile'],'required'],
         ];
