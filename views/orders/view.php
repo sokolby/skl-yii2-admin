@@ -108,7 +108,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $out;
 
                 },
-            ]
+            ],
+            'informed',
         ],
     ]) ?>
 

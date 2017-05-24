@@ -36,7 +36,7 @@ class Orders extends ActiveRecord
         $rules = [
             // general email and username rules
             [['time','item','type'], 'string'],
-            [['user_id','status'], 'integer'],
+            [['user_id','status','informed'], 'integer'],
         ];
 
         return $rules;
