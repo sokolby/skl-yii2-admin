@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($user, 'user_id')->textInput(['maxlength' => 255]) ?>
     <?= $form->field($user, 'time')->textInput(['maxlength' => 255]) ?>
-    <?= $form->field($user, 'item')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($user, 'item')->textInput() ?>
 
 
     <?= $form->field($user, 'status')->dropDownList([0=>'Проверяется',1=>'Подтвержден',2=>'Отправлен']) ?>
