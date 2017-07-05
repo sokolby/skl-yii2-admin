@@ -164,6 +164,8 @@ $role = $module->model("Role");
 
     <?= $form->field($profile, 'phone') ?>
 
+    <?= $form->field($profile, 'ava_src') ?>
+
     <?= $form->field($profile, 'chkbxEmailMe')->checkbox(
         ['label' => '<label for="profile-chkbxemailme">Хочу получать сообщения об акциях "Расшишка"</label>', 'uncheck' => '']); ?>
     <?= $form->field($profile, 'chkbxRules')->checkbox(

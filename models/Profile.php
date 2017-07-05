@@ -33,7 +33,7 @@ class Profile extends ActiveRecord
     public function rules()
     {
         return [
-            [['full_name','surname','name','third_name','sex','region','area','area_type','city','zip','str','house','housing','apt','phone'], 'string', 'max' => 255],
+            [['full_name','surname','name','third_name','sex','region','area','area_type','city','zip','str','house','housing','apt','phone','ava_src'], 'string', 'max' => 255],
             [['surname','name','third_name','sex','region','area_type','city','zip','str','house','apt','phone'], 'required'],
             [['bday_d','bday_m','bday_y','chkbxEmailMe','chkbxRules'],'integer'],
             [['bday_d','bday_m','bday_y','chkbxRules'],'required'],

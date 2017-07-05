@@ -172,6 +172,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     return $ret;
                 }
+            ],
+            [
+                'attribute' => 'profile.ava_src',
+                'format'=>'raw',
+                'value' => function ($model) {
+                    $ret = $model->profile->ava_src.'<br/><img src="/uploads/'.$model->profile->ava_src.'" width=110/>';
+                    return $ret;
+                }
             ]
 
         ],
