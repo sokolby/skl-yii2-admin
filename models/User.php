@@ -271,7 +271,7 @@ class User extends ActiveRecord implements IdentityInterface, \OAuth2\Storage\Us
     public function getUserDetails($username)
     {
 
-        $user = static::findOne(['username' => $username]);
+        $user = static::findOne(['email' => $username]);
         /* @var $user static */
         if ($user === null) {
             return false;
