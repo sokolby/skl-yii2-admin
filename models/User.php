@@ -34,7 +34,7 @@ use ReflectionClass;
  * @property UserToken[] $userTokens
  * @property UserAuth[] $userAuths
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends ActiveRecord implements IdentityInterface, \OAuth2\Storage\UserCredentialsInterface
 {
     /**
      * @var int Inactive status
@@ -246,12 +246,71 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * OLD
      * @inheritdoc
      */
+//    public static function findIdentityByAccessToken($token, $type = null)
+//    {
+//        return static::findOne(["access_token" => $token]);
+//    }
+
+    // ------------- oAuth --------------- //
+
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return static::findOne(["access_token" => $token]);
+
+        $storage = new \filsh\yii2\oauth2server\storage\Pdo(null,array());
+        $accessToken = $storage->getAccessToken($token);
+        if (($accessToken['expires'] - time()) > 0) {
+            $user_id = $accessToken['user_id'];
+            return static::findOne($user_id);
+        }
+        return static::findOne(["api_key" => $token]);
     }
+
+    public function getUserDetails($username)
+    {
+
+        $user = static::findOne(['username' => $username]);
+        /* @var $user static */
+        if ($user === null) {
+            return false;
+        }
+        return [
+            'user_id' => $user->id,
+        ];
+    }
+
+    public function loginByAccessToken($token, $type = null)
+    {
+
+        /* @var $class IdentityInterface */
+        $class = $this->identityClass;
+        $identity = $class::findIdentityByAccessToken($token, $type);
+        if ($identity && $this->login($identity)) {
+            return $identity;
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * Implemented for Oauth2 Interface
+     */
+    public function checkUserCredentials($username, $password)
+    {
+
+        //$user = static::findByUsername($username);
+        //if (empty($user)) {
+        //    return false;
+        //}
+        //return $user->validatePassword($password);
+
+        return true;
+    }
+
+    // ------------- oAuth --------------- //
 
     /**
      * @inheritdoc
