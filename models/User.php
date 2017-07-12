@@ -116,6 +116,9 @@ class User extends ActiveRecord implements IdentityInterface, \OAuth2\Storage\Us
             [['role_id', 'status'], 'integer', 'on' => ['admin']],
             [['banned_at'], 'integer', 'on' => ['admin']],
             [['banned_reason'], 'string', 'max' => 255, 'on' => 'admin'],
+			
+            // register referral
+            [['ref'], 'string', 'max' => 255],
         ];
 
         // add required for currentPassword on account page

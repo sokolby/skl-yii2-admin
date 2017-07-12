@@ -414,6 +414,10 @@ class DefaultController extends Controller
             $email = $newEmail ?: $user->email;
             $userToken->delete();
 
+			if(isset($user->ref) AND $user->ref == 'http://rastishka.by/'){
+                return $this->redirect('http://rastishka.by/');
+            }
+			
             return $this->redirect('/#confirm-success');
         }
 
