@@ -271,6 +271,7 @@ class User extends ActiveRecord implements IdentityInterface, \OAuth2\Storage\Us
     public function getUserDetails($username)
     {
 
+
         $user = static::findOne(['email' => $username]);
         /* @var $user static */
         if ($user === null) {
@@ -283,7 +284,6 @@ class User extends ActiveRecord implements IdentityInterface, \OAuth2\Storage\Us
 
     public function loginByAccessToken($token, $type = null)
     {
-
         /* @var $class IdentityInterface */
         $class = $this->identityClass;
         $identity = $class::findIdentityByAccessToken($token, $type);
@@ -301,13 +301,13 @@ class User extends ActiveRecord implements IdentityInterface, \OAuth2\Storage\Us
     public function checkUserCredentials($username, $password)
     {
 
-        //$user = static::findByUsername($username);
-        //if (empty($user)) {
-        //    return false;
-        //}
-        //return $user->validatePassword($password);
 
-        return true;
+        $user = static::findOne(['email' => $username]);
+        if (empty($user)) {
+            return false;
+        }
+        return $user->validatePassword($password);
+
     }
 
     // ------------- oAuth --------------- //
