@@ -343,6 +343,20 @@ class DefaultController extends Controller
         $model_points->status = 300;
         $model_points->desc = 'Создан бонусный счет';
         $model_points->save();
+		
+		$points_model = Points::find()->where(['user_id'=>$user->id])->one();
+        $new_balance = (int)$points_model->amount + 50;
+        $points_model->amount = $new_balance;
+        $points_model->last_update = date("Y-m-d H:i:s");
+        $points_model->update(false);
+
+        $model_points = new Transaction();
+        $model_points->user_id = $user->id;
+        $model_points->date = date("Y-m-d H:i:s");
+        $model_points->status = 200;
+        $model_points->amount = 50;
+        $model_points->desc = 'Бонус за регистрацию';
+        $model_points->save();
 
         // Log action
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
